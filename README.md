@@ -7,4 +7,15 @@ This a basic Ruby On Rails application that allows for users to sign up and stor
 4. Go to http://localhost:3000 to view the application.
 
 ## Steps to Setup Gravatar
-1. 
+1. Update the image tag in views/contacts/index.html.erb to the following:
+```
+<%= image_tag gravatar_url(contact)%>
+```
+2. Add this to your application.helper.rb file.
+```
+def gravatar_url(contact)
+ gravatar_id= Digest::MD5::hexdigest(contact.email.downcase)
+ default_url = "app/assets/images/avatar.png"
+ url = "http://gravatar.com/avatar/#{gravatar_id}.png?s=128&d=#{CGI.escape(default_url)}"
+end
+```
